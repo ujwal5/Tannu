@@ -442,8 +442,31 @@ function type(){const ph=phrases[pi];if(!del){tw.textContent=ph.slice(0,ci+1);ci
 setTimeout(type,5500);
 
 /* COUNTDOWN */
-function updateCD(){const now=new Date();const end=new Date(now);end.setHours(23,59,59,999);const d=end-now;const h=Math.floor(d/3600000);const m=Math.floor((d%3600000)/60000);const s=Math.floor((d%60000)/1000);document.getElementById('cd-h').textContent=String(h).padStart(2,'0');document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0');}
-updateCD();setInterval(updateCD,1000);
+function updateCD() {
+  const now = new Date();
+
+  // Set birthday date (YEAR, MONTH-1, DAY)
+  const birthday = new Date(now.getFullYear(), 3, 19, 0, 0, 0); 
+  // April = 3 (because January = 0)
+
+  // If birthday already passed this year → next year
+  if (now > birthday) {
+    birthday.setFullYear(now.getFullYear() + 1);
+  }
+
+  const diff = birthday - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('cd-h').textContent = String(days).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(minutes).padStart(2,'0');
+}
+updateCD();
+setInterval(updateCD, 1000);
 
 /* CAROUSEL */
 const track=document.getElementById('reasons-track');
