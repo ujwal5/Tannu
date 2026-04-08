@@ -6,6 +6,7 @@
 <title>Happy Birthday Tannu 💛</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+/* ---- YOUR FULL CSS EXACT SAME (UNCHANGED) ---- */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --pink:#f4b8c8;--pink-light:#fce4ec;--pink-deep:#e8829a;--pink-glow:#f9d0dc;
@@ -14,6 +15,7 @@
 }
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;}
+
 
 #cursor{position:fixed;width:12px;height:12px;background:var(--pink-deep);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width 0.2s,height 0.2s;}
 #cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--lav-deep);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all 0.12s ease;opacity:0.6;}
@@ -226,10 +228,10 @@ input[type="file"]{display:none;}
 
 <!-- COUNTDOWN -->
 <div class="countdown-section">
-  <h3 class="countdown-title">🎂 Counting down to your special day!</h3>
-  <p class="countdown-sub">Every second brings us closer 💛</p>
-  
+  <h3 class="countdown-title">🎂 Your special day is here!</h3>
+  <p class="countdown-sub">Every second of today belongs to you</p>
   <div class="countdown-grid">
+    
     <div class="countdown-item">
       <div class="countdown-num" id="cd-d">00</div>
       <div class="countdown-label">days</div>
@@ -248,7 +250,10 @@ input[type="file"]{display:none;}
     <div class="countdown-item">
       <div class="countdown-num" id="cd-s">00</div>
       <div class="countdown-label">seconds</div>
-   </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- HER PHOTOS -->
 <section class="section reveal">
@@ -457,26 +462,39 @@ function type(){const ph=phrases[pi];if(!del){tw.textContent=ph.slice(0,ci+1);ci
 setTimeout(type,5500);
 
 /* COUNTDOWN */
-// Birthday in IST (India time)
-  const birthday = new Date("April 19, " + now.getFullYear() + " 00:00:00 GMT+0530");
+function updateCD(){
+  const now = new Date();
 
-  // If birthday passed → next year
-  if (now > birthday) {
-    birthday.setFullYear(now.getFullYear() + 1);
+  // 👉 Your target date (April 19, 2026)
+  const target = new Date(2026, 3, 19, 23, 59, 59);
+
+  const diff = target - now;
+
+  if(diff <= 0){
+    document.getElementById('cd-d').textContent="00";
+    document.getElementById('cd-h').textContent="00";
+    document.getElementById('cd-m').textContent="00";
+    document.getElementById('cd-s').textContent="00";
+    return;
   }
 
-  const diff = birthday - now;
+  // ✅ ADD THIS (days calculation)
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-  document.getElementById('cd-d').textContent = String(days).padStart(2, '0');
-  document.getElementById('cd-h').textContent = String(hours).padStart(2, '0');
-  document.getElementById('cd-m').textContent = String(minutes).padStart(2, '0');
-  document.getElementById('cd-s').textContent = String(seconds).padStart(2, '0');
+  // ✅ UPDATE UI
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
 }
+
+updateCD();
+setInterval(updateCD,1000);
+
 /* CAROUSEL */
 const track=document.getElementById('reasons-track');
 const rcards=track.querySelectorAll('.reason-card');
