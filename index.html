@@ -245,6 +245,11 @@ input[type="file"]{display:none;}
       <div class="countdown-label">minutes</div>
     </div>
 
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-s">00</div>
+      <div class="countdown-label">seconds</div>
+   </div>
+
 <!-- HER PHOTOS -->
 <section class="section reveal">
   <p class="section-label">the prettiest girl ✦</p>
@@ -452,13 +457,10 @@ function type(){const ph=phrases[pi];if(!del){tw.textContent=ph.slice(0,ci+1);ci
 setTimeout(type,5500);
 
 /* COUNTDOWN */
-function updateCD() {
-  const now = new Date();
+// Birthday in IST (India time)
+  const birthday = new Date("April 19, " + now.getFullYear() + " 00:00:00 GMT+0530");
 
-  // Set birthday → April 19
-  const birthday = new Date(now.getFullYear(), 3, 19, 0, 0, 0);
-
-  // If birthday already passed → next year
+  // If birthday passed → next year
   if (now > birthday) {
     birthday.setFullYear(now.getFullYear() + 1);
   }
@@ -475,10 +477,6 @@ function updateCD() {
   document.getElementById('cd-m').textContent = String(minutes).padStart(2, '0');
   document.getElementById('cd-s').textContent = String(seconds).padStart(2, '0');
 }
-
-updateCD();
-setInterval(updateCD, 1000);
-
 /* CAROUSEL */
 const track=document.getElementById('reasons-track');
 const rcards=track.querySelectorAll('.reason-card');
