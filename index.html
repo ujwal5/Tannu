@@ -226,14 +226,24 @@ input[type="file"]{display:none;}
 
 <!-- COUNTDOWN -->
 <div class="countdown-section">
-  <h3 class="countdown-title">🎂 Your special day is here!</h3>
-  <p class="countdown-sub">Every second of today belongs to you</p>
+  <h3 class="countdown-title">🎂 Counting down to your special day!</h3>
+  <p class="countdown-sub">Every second brings us closer 💛</p>
+  
   <div class="countdown-grid">
-    <div class="countdown-item"><div class="countdown-num" id="cd-h">00</div><div class="countdown-label">hours left</div></div>
-    <div class="countdown-item"><div class="countdown-num" id="cd-m">00</div><div class="countdown-label">minutes</div></div>
-    <div class="countdown-item"><div class="countdown-num" id="cd-s">00</div><div class="countdown-label">seconds</div></div>
-  </div>
-</div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-d">00</div>
+      <div class="countdown-label">days</div>
+    </div>
+
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-h">00</div>
+      <div class="countdown-label">hours</div>
+    </div>
+
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-m">00</div>
+      <div class="countdown-label">minutes</div>
+    </div>
 
 <!-- HER PHOTOS -->
 <section class="section reveal">
@@ -445,11 +455,10 @@ setTimeout(type,5500);
 function updateCD() {
   const now = new Date();
 
-  // Set birthday date (YEAR, MONTH-1, DAY)
-  const birthday = new Date(now.getFullYear(), 3, 19, 0, 0, 0); 
-  // April = 3 (because January = 0)
+  // Set birthday → April 19
+  const birthday = new Date(now.getFullYear(), 3, 19, 0, 0, 0);
 
-  // If birthday already passed this year → next year
+  // If birthday already passed → next year
   if (now > birthday) {
     birthday.setFullYear(now.getFullYear() + 1);
   }
@@ -461,10 +470,12 @@ function updateCD() {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  document.getElementById('cd-h').textContent = String(days).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(hours).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(minutes).padStart(2,'0');
+  document.getElementById('cd-d').textContent = String(days).padStart(2, '0');
+  document.getElementById('cd-h').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-m').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('cd-s').textContent = String(seconds).padStart(2, '0');
 }
+
 updateCD();
 setInterval(updateCD, 1000);
 
