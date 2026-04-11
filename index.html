@@ -321,13 +321,15 @@ input[type="file"]{display:none;}
 <section class="section reveal">
   <p class="section-label">us ✦</p>
   <h2 class="section-title"><em>Our</em> little moments</h2>
-  <div class="memories-grid">
-    <div class="memory-card" id="mem1" onclick="triggerMemUpload('mem1')">
-      <div class="memory-photo"><div class="mem-placeholder"><span>🤍</span><p>Click to add a photo of you two</p></div></div>
-      <div class="mem-upload-overlay">📷</div>
-      <div class="memory-caption"><h3>The best days</h3><p>memories that live forever in my heart</p></div>
-      <input type="file" accept="image/*" id="mem1-input" onchange="loadMemory(event,'mem1')" style="display:none;">
-    </div>
+  <div class="memory-card">
+  <div class="memory-photo">
+    <img src="pic_4.jpg" alt="memory">
+  </div>
+  <div class="memory-caption">
+    <h3>The best days</h3>
+    <p>memories that live forever in my heart</p>
+  </div>
+</div>
     <div class="memory-card" id="mem2" onclick="triggerMemUpload('mem2')">
       <div class="memory-photo"><div class="mem-placeholder"><span>💕</span><p>Click to add a photo of you two</p></div></div>
       <div class="mem-upload-overlay">📷</div>
