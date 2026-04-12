@@ -209,7 +209,9 @@ input[type="file"]{display:none;}
 <div class="petals-layer" id="petals"></div>
 <canvas id="confetti-canvas"></canvas>
 <button class="music-btn" id="music-btn" title="Toggle music">♪</button>
-
+<audio id="bg-music" loop>
+  <source src="Paresh Pahuja - Dooron Dooron (Live from The Voice Notes Concert).mp3" type="audio/mpeg">
+</audio>
 <!-- HERO -->
 <section class="hero">
   <div class="hero-orb orb1"></div>
@@ -539,18 +541,23 @@ function launchConfetti(){
 }
 
 /* MUSIC */
-let actx=null,playing=false,melodyTO=null;
-const mBtn=document.getElementById('music-btn');
-const noteFreqs={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25};
-const song=[['E4',0.3],['G4',0.3],['A4',0.3],['C5',0.6],['B4',0.3],['A4',0.3],['G4',0.6],['E4',0.3],['G4',0.3],['A4',0.3],['G4',0.6],['F4',0.3],['E4',0.3],['D4',0.6],['C4',0.8]];
-function playMelody(){
-  if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();
-  let t=actx.currentTime;
-  song.forEach(([n,dur])=>{const osc=actx.createOscillator();const gain=actx.createGain();osc.type='sine';osc.frequency.value=noteFreqs[n]||440;gain.gain.setValueAtTime(0,t);gain.gain.linearRampToValueAtTime(0.1,t+0.04);gain.gain.linearRampToValueAtTime(0,t+dur-0.04);osc.connect(gain);gain.connect(actx.destination);osc.start(t);osc.stop(t+dur);t+=dur;});
-  melodyTO=setTimeout(playMelody,(t-actx.currentTime)*1000);
-}
-mBtn.addEventListener('click',()=>{playing=!playing;if(playing){mBtn.textContent='♪';mBtn.classList.add('playing');playMelody();}else{mBtn.textContent='♩';mBtn.classList.remove('playing');clearTimeout(melodyTO);}});
+const music = document.getElementById("bg-music");
+const mBtn = document.getElementById("music-btn");
 
+let playing = false;
+
+mBtn.addEventListener("click", () => {
+  if (!playing) {
+    music.play();
+    mBtn.textContent = "♪";
+    mBtn.classList.add("playing");
+  } else {
+    music.pause();
+    mBtn.textContent = "♩";
+    mBtn.classList.remove("playing");
+  }
+  playing = !playing;
+});
 /* Auto confetti after loader */
 setTimeout(launchConfetti,4500);
 </script>
